@@ -1,16 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Shopping List App</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cookie&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"  />
-    <link rel="stylesheet" href="style.css">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cookie&family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
     <script src="main.js" defer></script>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body>
+    <!-- HEADING -->
+    <div class="container">
+      <header>
+        <h1 class="todo-heading">Grocery Bud</h1>
+      </header>
+
+      <!-- INPUT AREA -->
+      <div class="todo-input-area">
+        <div class="input">
+          <input type="text" class="todo-input" placeholder="need to buy..." />
+          <button class="buy-btn">Buy</button>
+        </div>
+
+        <div class="filter">
+          <select name = 'todos' class="filter-todos">
+            <option value="All">All</option>
+            <option value="Completed">Completed</option>
+            <option value="Uncompleted">Uncompleted</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- LIST BODY -->
+
+      <div class="todo-container">
+        <ul class="todo-list">
+          <div class="todo">
+              <i class="fas fa-circle co" job="completed"></i>
+            <p class="text">Apples</p>
+            
+            <button class="edit-btn">
+              <i class="fas fa-pencil edit"></i>
+            </button>
+            <button class="trash-btn">
+              <i class="fas fa-trash de" job="delete"></i>
+            </button>
+          </div>
+        </ul>
+      </div>
+
+      <!--  CLEAR -->
+      <div class="clear">
+        <p class="clear-txt">Clear Items</p>
+      </div>
+    </div>
+  </body>
 </html>
