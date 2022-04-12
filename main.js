@@ -6,6 +6,8 @@ const todoEl = document.querySelector('.todo-list');
 const clearEl = document.querySelector('.clear');
 
 // Variables
+const LIST = [];
+const id;
 
 // Classes
 const CHECK = 'fa-check-circle';
@@ -17,8 +19,16 @@ const LINE = 'line-through';
 // Local Storage
 
 // Check if Todos in LS
+const todo = localStorage.getItem('todos')
+
+if(todo){
+    LIST = json.parse('todo')
+    id = LIST.length;
+    
+}
 
 // Add Todos in LS
+
 function addTodos(e, todo, id, done, trash) {
   e.preventDefault();
   const todoValue = inputEl.value;
@@ -41,7 +51,7 @@ function addTodos(e, todo, id, done, trash) {
       <p class="text ${LINED}">${todoValue}</p>
       
       <button class="edit-btn">
-        <i class="fas fa-pencil edit" id ='${id}'></i>
+        <i class="fas fa-pencil edit" job ='edit' id ='${id}'></i>
       </button>
       <button class="trash-btn">
         <i class="fas fa-trash de" job="delete" id ='${id}'></i>
@@ -59,13 +69,22 @@ function completeTodo(element) {
   element.classList.toggle(UNCHECK);
   element.parentNode.querySelector('.text').classList.toggle(LINE);
 }
+// Delete Todo
+function deleteTodo(element) {
+  element.parentNode.remove(element.parentNode);
+}
+// Edit Todos
+function editTodos(element) {
+  const textEl = element.parentNode.parentNode.querySelector('.text');
+
+  textEl.contentEditable = true;
+  textEl.classList.toggle('text-border');
+
+  console.log(textEl);
+}
 // Remove Todos from LS
 
 // Add Todo
-
-// Delete Todo
-
-// Edit Todos
 
 // Event Listens
 // dynamically created content
@@ -75,8 +94,11 @@ todoEl.addEventListener('click', (e) => {
 
   if (elementJob === 'completed') {
     completeTodo(element);
+  } else if (elementJob === 'delete') {
+    deleteTodo(element.parentNode);
+  } else if (elementJob === 'edit') {
+    editTodos(element);
   }
-  console.log(e);
 });
 
 buyBtn.addEventListener('click', addTodos);
