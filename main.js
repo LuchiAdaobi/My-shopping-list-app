@@ -88,11 +88,14 @@ function deleteGrocery(element) {
 
 // Edit grocerys
 function editGrocerys(element) {
-  const textEl = element.parentNode.parentNode.querySelector('.text');
+  let textEl = element.parentNode.parentNode.querySelector('.text');
+  // const key = element.target;
 
   textEl.contentEditable = true;
   textEl.classList.toggle('text-border');
-  
+  textEl.addEventListener('keyup', () => {
+    textEl = textEl.textContent;
+  });
   LIST[element.id].name = textEl.textContent;
 
   localStorage.setItem('Grocery', JSON.stringify(LIST));
