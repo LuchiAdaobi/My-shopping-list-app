@@ -41,7 +41,7 @@ function loadList(array) {
 // Add grocery
 function addGroceries(grocery, id, done, trash) {
   //   e.preventDefault();
-  const groceryValue = inputEl.value;
+  //   const groceryValue = inputEl.value;
 
   if (trash) {
     return;
@@ -50,28 +50,23 @@ function addGroceries(grocery, id, done, trash) {
   const DONE = done ? CHECK : UNCHECK;
   const LINED = done ? LINE : '';
 
-  //   check if input empty
-  if (groceryValue === '') {
-    // alert('Please, add a grocery item');
-  } else {
-    const divEl = document.createElement('div');
-    divEl.classList.add('grocery');
+  const divEl = document.createElement('div');
+  divEl.classList.add('grocery');
 
-    divEl.innerHTML = `
+  divEl.innerHTML = `
       <i class="far ${DONE} co" job="completed" id='${id}'></i>
-      <p class="text ${LINED}">${groceryValue}</p>
+      <p class="text ${LINED}">${grocery}</p>
       
-      <button class="edit-btn">
+      <button class="edit-btn" job='edit'>
         <i class="fas fa-pencil edit" job='edit' id ='${id}'></i>
       </button>
-      <button class="trash-btn">
-        <i class="fas fa-trash de" job="delete" id ='${id}'></i>
+      <button class="trash-btn" id = '${id}'>
+        <i class="fas fa-trash de" job="delete"></i>
       </button>
       `;
 
-    groceryEl.appendChild(divEl);
-    // inputEl.value = '';
-  }
+  groceryEl.appendChild(divEl);
+  // inputEl.value = '';
 }
 
 // Complete grocery
@@ -84,7 +79,7 @@ function completeGrocery(element) {
   localStorage.setItem('Grocery', JSON.stringify(LIST));
 }
 
-// Delete grocery
+//  grocery
 function deleteGrocery(element) {
   element.parentNode.remove(element.parentNode);
   LIST[element.id].trash = true;
@@ -97,8 +92,11 @@ function editGrocerys(element) {
   textEl.contentEditable = true;
   textEl.classList.toggle('text-border');
 
-  console.log(textEl);
+  localStorage.setItem('Grocery', JSON.stringify(LIST));
 }
+
+// Filter Grocery
+// function filterGrocery(e) {}
 
 // Event Listens
 // dynamically created content
@@ -113,9 +111,11 @@ groceryEl.addEventListener('click', (e) => {
   } else if (elementJob === 'edit') {
     editGrocerys(element);
   }
+
   // Update LS
   localStorage.setItem('Grocery', JSON.stringify(LIST));
 });
+
 // prevent form from auto submitting
 document.querySelector('.grocery-input-area').addEventListener('click', (e) => {
   e.preventDefault();
@@ -126,7 +126,9 @@ buyBtn.addEventListener('click', () => {
   const grocery = inputEl.value;
 
   //   check if input is empty
-  if (grocery) {
+  if (grocery === '') {
+    alert('Please, add a grocery item');
+  } else {
     addGroceries(grocery, id, false, false);
     LIST.push({
       name: grocery,
@@ -143,3 +145,5 @@ buyBtn.addEventListener('click', () => {
   }
   inputEl.value = '';
 });
+
+// filterOptions.addEventListener('input', filterGrocery);
