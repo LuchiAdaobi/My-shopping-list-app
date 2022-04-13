@@ -21,12 +21,12 @@ li {
   padding: 0 1rem;
 }
 /* Heading */
-.todo-heading {
+.grocery-heading {
   text-align: center;
   font-size: calc(2rem + 3vw);
   color: rgb(163, 18, 47);
 }
-.todo-input-area {
+.grocery-input-area {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,7 +39,8 @@ input {
   padding: 0.5rem;
   outline: none;
   border: 1px solid var(--primary-color);
-  font-size: 1rem;
+  font-size: 1.1rem;
+  color: var(--color-purple);
   /* width: 25rem; */
 }
 .buy-btn {
@@ -72,7 +73,7 @@ select {
   position: relative;
   overflow: hidden;
 }
-.filter-todos {
+.filter-groceries {
   cursor: pointer;
   color: var(--primary-color);
   width: 7rem;
@@ -84,7 +85,7 @@ select {
   position: absolute;
   right: 10px;
   bottom: 10px;
-  padding: 0.6rem;
+  padding: 0.65rem;
   cursor: pointer;
 }
 .filter:hover::after {
@@ -92,7 +93,7 @@ select {
   color: #fff;
 }
 /* List body */
-.todo-container {
+.grocery-container {
   background-color: #fff;
   padding: 0;
   margin: auto;
@@ -102,11 +103,11 @@ select {
   font-size: calc(1rem + 1vw);
   max-width: 80vw;
 }
-.todo-list {
+.grocery-list {
   padding-left: 0px;
   margin-left: 0;
 }
-.todo {
+.grocery {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -114,10 +115,10 @@ select {
   border-bottom: 1.5px solid rgb(221, 207, 207);
   border-radius: 8px;
 }
-.todo .fa-check-circle {
+.grocery .fa-check-circle {
   color: var(--green-color);
 }
-.todo .text {
+.grocery .text {
   flex: 1;
   margin-left: 0.4rem;
   color: var(--color-purple);

@@ -1,13 +1,9 @@
 // Dom Selection
-const inputEl = document.querySelector('.todo-input');
+const inputEl = document.querySelector('.grocery-input');
 const buyBtn = document.querySelector('.buy-btn');
-const filterOptions = document.querySelector('.filter-todos');
-const todoEl = document.querySelector('.todo-list');
+const filterOptions = document.querySelector('.filter-groceries');
+const groceryEl = document.querySelector('.grocery-list');
 const clearEl = document.querySelector('.clear');
-
-// Variables
-const LIST = [];
-const id;
 
 // Classes
 const CHECK = 'fa-check-circle';
@@ -18,20 +14,34 @@ const LINE = 'line-through';
 
 // Local Storage
 
-// Check if Todos in LS
-const todo = localStorage.getItem('todos')
+// Variables
+let LIST = [];
+let id = 0;
 
-if(todo){
-    LIST = json.parse('todo')
-    id = LIST.length;
-    
+// Get LS
+const data = localStorage.getItem('Grocery');
+
+// Add grocerys to LS
+if (data) {
+  LIST = JSON.parse(data);
+  id = LIST.length;
+  loadList(LIST);
+} else {
+  LIST = [];
+  id = 0;
 }
 
-// Add Todos in LS
+// Load list from LS to UI
+function loadList(array) {
+  array.forEach((item) => {
+    addGroceries(item.name, item.id, item.done, item.trash);
+  });
+}
 
-function addTodos(e, todo, id, done, trash) {
-  e.preventDefault();
-  const todoValue = inputEl.value;
+// Add grocery
+function addGroceries(grocery, id, done, trash) {
+  //   e.preventDefault();
+  const groceryValue = inputEl.value;
 
   if (trash) {
     return;
@@ -39,42 +49,49 @@ function addTodos(e, todo, id, done, trash) {
 
   const DONE = done ? CHECK : UNCHECK;
   const LINED = done ? LINE : '';
+
   //   check if input empty
-  if (todoValue === '') {
-    alert('Please, add a grocery item');
+  if (groceryValue === '') {
+    // alert('Please, add a grocery item');
   } else {
     const divEl = document.createElement('div');
-    divEl.classList.add('todo');
+    divEl.classList.add('grocery');
 
     divEl.innerHTML = `
       <i class="far ${DONE} co" job="completed" id='${id}'></i>
-      <p class="text ${LINED}">${todoValue}</p>
+      <p class="text ${LINED}">${groceryValue}</p>
       
       <button class="edit-btn">
-        <i class="fas fa-pencil edit" job ='edit' id ='${id}'></i>
+        <i class="fas fa-pencil edit" job='edit' id ='${id}'></i>
       </button>
       <button class="trash-btn">
         <i class="fas fa-trash de" job="delete" id ='${id}'></i>
       </button>
       `;
 
-    todoEl.appendChild(divEl);
-    inputEl.value = '';
+    groceryEl.appendChild(divEl);
+    // inputEl.value = '';
   }
 }
 
-// Complete Todo
-function completeTodo(element) {
+// Complete grocery
+function completeGrocery(element) {
   element.classList.toggle(CHECK);
   element.classList.toggle(UNCHECK);
   element.parentNode.querySelector('.text').classList.toggle(LINE);
+
+  LIST[element.id].done = !LIST[element.id].done;
+  localStorage.setItem('Grocery', JSON.stringify(LIST));
 }
-// Delete Todo
-function deleteTodo(element) {
+
+// Delete grocery
+function deleteGrocery(element) {
   element.parentNode.remove(element.parentNode);
+  LIST[element.id].trash = true;
 }
-// Edit Todos
-function editTodos(element) {
+
+// Edit grocerys
+function editGrocerys(element) {
   const textEl = element.parentNode.parentNode.querySelector('.text');
 
   textEl.contentEditable = true;
@@ -82,26 +99,47 @@ function editTodos(element) {
 
   console.log(textEl);
 }
-// Remove Todos from LS
-
-// Add Todo
 
 // Event Listens
 // dynamically created content
-todoEl.addEventListener('click', (e) => {
+groceryEl.addEventListener('click', (e) => {
   const element = e.target;
   const elementJob = element.attributes.job.value;
 
   if (elementJob === 'completed') {
-    completeTodo(element);
+    completeGrocery(element);
   } else if (elementJob === 'delete') {
-    deleteTodo(element.parentNode);
+    deleteGrocery(element.parentNode);
   } else if (elementJob === 'edit') {
-    editTodos(element);
+    editGrocerys(element);
   }
+  // Update LS
+  localStorage.setItem('Grocery', JSON.stringify(LIST));
+});
+// prevent form from auto submitting
+document.querySelector('.grocery-input-area').addEventListener('click', (e) => {
+  e.preventDefault();
 });
 
-buyBtn.addEventListener('click', addTodos);
-inputEl.addEventListener('click', (e) => {
-  e.preventDefault();
+// populate grocery container and push to LS
+buyBtn.addEventListener('click', () => {
+  const grocery = inputEl.value;
+
+  //   check if input is empty
+  if (grocery) {
+    addGroceries(grocery, id, false, false);
+    LIST.push({
+      name: grocery,
+      id,
+      done: false,
+      trash: false,
+    });
+
+    // update LS
+    localStorage.setItem('Grocery', JSON.stringify(LIST));
+
+    // increment id
+    id += 1;
+  }
+  inputEl.value = '';
 });
