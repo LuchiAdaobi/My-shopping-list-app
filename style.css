@@ -7,6 +7,8 @@
 }
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 body {
   background-color: rgb(190, 228, 228);
@@ -25,18 +27,21 @@ li {
   text-align: center;
   font-size: calc(2rem + 3vw);
   color: rgb(163, 18, 47);
+  margin: 2rem auto;
 }
 .grocery-input-area {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  margin-bottom: 4rem;
 }
 .input {
   display: flex;
 }
 input {
   background-color: #fff;
-  padding: 0.5rem;
+  padding: 0.9rem;
   outline: none;
   border: 1px solid var(--primary-color);
   font-size: 1.1rem;
@@ -76,16 +81,16 @@ select {
 .filter-groceries {
   cursor: pointer;
   color: var(--primary-color);
-  width: 7rem;
-  padding: 0.7rem;
+  width: 9rem;
+  padding: 1rem;
   transition: all 0.3s ease;
 }
 .filter::after {
   content: '\25BC';
   position: absolute;
   right: 10px;
-  bottom: 10px;
-  padding: 0.65rem;
+  bottom: 12px;
+  padding: 0.85rem;
   cursor: pointer;
 }
 .filter:hover::after {
@@ -94,13 +99,7 @@ select {
 }
 /* List body */
 .grocery-container {
-  background-color: #fff;
-  padding: 0;
   margin: auto;
-  margin-top: 2rem;
-  box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
-  font-size: calc(1rem + 1vw);
   max-width: 80vw;
 }
 .grocery-list {
@@ -111,9 +110,16 @@ select {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 1.5rem;
+  padding: 0.6rem;
   border-bottom: 1.5px solid rgb(221, 207, 207);
   border-radius: 8px;
+  transition: all 0.3s ease;
+  background-color: #fff;
+  margin: auto;
+  margin-top: 1rem;
+  box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  font-size: calc(1rem + 1vw);
 }
 .grocery .fa-check-circle {
   color: var(--green-color);
@@ -122,22 +128,25 @@ select {
   flex: 1;
   margin-left: 0.4rem;
   color: var(--color-purple);
-  margin-right: .3rem;
+  margin-right: 0.3rem;
 }
-.text-border{
+.text-border {
   border: 1px solid var(--color-purple);
-  padding: .3rem;
+  padding: 0.3rem;
 }
 .line-through {
   text-decoration: line-through;
   opacity: 0.5;
 }
-[contentEditable]{
-  padding: .3rem;
+.fall {
+  transform: translateY(8rem) rotateZ(20deg);
+  opacity: 0;
+}
+[contentEditable] {
+  padding: 0.3rem;
 }
 [contentEditable]:focus,
-[contentEditable]:hover
-[contentEditable]:active{
+[contentEditable]:hover [contentEditable]:active {
   border: 1px solid var(--color-purple);
   outline: ipx solid var(--color-purple);
 }
@@ -155,7 +164,6 @@ select {
   outline: none;
   color: #fff;
   transition: all 0.3s ease;
-  /* pointer-events: none; */
 }
 .edit-btn {
   background-color: var(--green-color);
@@ -173,7 +181,7 @@ select {
 /* Clear */
 .clear {
   text-align: center;
-  margin-top: 2.5rem;
+  margin: 1rem;
 }
 .clear-txt {
   font-size: calc(1rem + 1vw);
@@ -186,10 +194,47 @@ select {
 /* MEDIA QUERIES */
 /* Bigger phones */
 @media (min-width: 500px) {
+  .grocery-input-area {
+    flex-direction: row;
+  }
 }
 /* Tablets */
-@media (min-width: 786px) {
+@media (min-width: 670px) {
+  .container {
+    padding: 0 6rem;
+  }
+  input {
+    width: 17rem;
+  }
+  .grocery-container {
+    max-width: 30rem;
+  }
+}
+
+@media (min-width: 820px) {
+  .container {
+    padding: 0 6rem;
+  }
+  input {
+    width: 22rem;
+  }
+  .grocery-container {
+    max-width: 36rem;
+  }
 }
 /* Laptops  & PCs */
 @media (min-width: 960px) {
+  .container {
+    padding: 0 5rem;
+  }
+  input {
+    width: 26rem;
+  }
+  .filter-groceries {
+    width: 10rem;
+  }
+  .grocery-container {
+    max-width: 40rem;
+  }
+  ;
 }

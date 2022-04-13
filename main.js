@@ -81,6 +81,7 @@ function completeGrocery(element) {
 
 //  grocery
 function deleteGrocery(element) {
+  //   element.classList.add('fall');
   element.parentNode.remove(element.parentNode);
   LIST[element.id].trash = true;
 }
@@ -91,23 +92,61 @@ function editGrocerys(element) {
 
   textEl.contentEditable = true;
   textEl.classList.toggle('text-border');
+  
+  LIST[element.id].name = textEl.textContent;
 
   localStorage.setItem('Grocery', JSON.stringify(LIST));
 }
 
 // Filter Grocery
-// function filterGrocery(e) {}
+function filterGrocery(e) {
+  const list = groceryEl.querySelectorAll('.grocery');
+  console.log(list);
+  list.forEach((grocery) => {
+    const checked = grocery
+      .querySelector('i')
+      .classList.contains('fa-check-circle');
 
+    switch (e.target.value) {
+      case 'All':
+        grocery.style.display = 'flex';
+        break;
+
+      case 'Completed':
+        if (checked) {
+          grocery.style.display = 'flex';
+        } else {
+          grocery.style.display = 'none';
+        }
+      case 'Uncompleted':
+        if (!checked) {
+          grocery.style.display = 'flex';
+        } else {
+          grocery.style.display = 'none';
+        }
+    }
+  });
+}
+
+// Clear function
+clearEl.addEventListener('click', () => {
+  location.reload();
+  localStorage.clear();
+});
 // Event Listens
 // dynamically created content
 groceryEl.addEventListener('click', (e) => {
   const element = e.target;
   const elementJob = element.attributes.job.value;
+  const elementContent = element.parentNode.parentNode;
 
   if (elementJob === 'completed') {
     completeGrocery(element);
   } else if (elementJob === 'delete') {
-    deleteGrocery(element.parentNode);
+    elementContent.classList.add('fall');
+    elementContent.addEventListener('transitionend', () => {
+      deleteGrocery(element.parentNode);
+    });
   } else if (elementJob === 'edit') {
     editGrocerys(element);
   }
@@ -146,4 +185,4 @@ buyBtn.addEventListener('click', () => {
   inputEl.value = '';
 });
 
-// filterOptions.addEventListener('input', filterGrocery);
+filterOptions.addEventListener('click', filterGrocery);
