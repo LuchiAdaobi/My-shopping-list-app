@@ -110,9 +110,6 @@ function filterGrocery(e) {
       .querySelector('i')
       .classList.contains('fa-check-circle');
 
-    console.log(grocery);
-    console.log(checked);
-
     switch (e.target.value) {
       case 'All':
         grocery.style.display = 'flex';
