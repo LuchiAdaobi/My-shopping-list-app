@@ -88,7 +88,7 @@ select {
 .filter::after {
   content: '\25BC';
   position: absolute;
-  right: 10px;
+  right: 2px;
   bottom: 12px;
   padding: 0.85rem;
   cursor: pointer;
