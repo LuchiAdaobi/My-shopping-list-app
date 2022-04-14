@@ -81,9 +81,9 @@ function completeGrocery(element) {
 
 //  grocery
 function deleteGrocery(element) {
-  //   element.classList.add('fall');
   element.parentNode.remove(element.parentNode);
   LIST[element.id].trash = true;
+  localStorage.setItem('Grocery', JSON.stringify(LIST));
 }
 
 // Edit grocerys
