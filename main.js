@@ -110,6 +110,9 @@ function filterGrocery(e) {
       .querySelector('i')
       .classList.contains('fa-check-circle');
 
+    console.log(grocery);
+    console.log(checked);
+
     switch (e.target.value) {
       case 'All':
         grocery.style.display = 'flex';
@@ -121,12 +124,14 @@ function filterGrocery(e) {
         } else {
           grocery.style.display = 'none';
         }
+        break;
       case 'Uncompleted':
         if (!checked) {
           grocery.style.display = 'flex';
         } else {
           grocery.style.display = 'none';
         }
+        break;
     }
   });
 }
