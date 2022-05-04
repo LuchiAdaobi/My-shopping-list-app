@@ -92,6 +92,7 @@ select {
   bottom: 12px;
   padding: 0.85rem;
   cursor: pointer;
+  pointer-events: none;
 }
 .filter:hover::after {
   background-color: var(--primary-color);
@@ -142,6 +143,7 @@ select {
   transform: translateY(8rem) rotateZ(20deg);
   opacity: 0;
 }
+
 [contentEditable] {
   padding: 0.3rem;
 }
@@ -165,13 +167,25 @@ select {
   color: #fff;
   transition: all 0.3s ease;
 }
-.edit-btn {
+.edit-btn{
   background-color: var(--green-color);
   margin-right: 0.2rem;
 }
-.edit-btn:hover {
+.edit-btn:hover, .edit-btn:hover {
   background-color: #fff;
   color: var(--green-color);
+}
+.edit{
+  display: none;
+}
+.edit.active{
+  display: flex;
+}
+.edit-check{
+  display: none;
+}
+.edit-check.active{
+  display: flex;
 }
 .trash-btn:hover {
   background-color: #fff;

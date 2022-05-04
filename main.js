@@ -5,6 +5,9 @@ const filterOptions = document.querySelector('.filter-groceries');
 const groceryEl = document.querySelector('.grocery-list');
 const clearEl = document.querySelector('.clear');
 
+const editBtn = document.querySelector('.edit');
+const editCheck = document.querySelector('.edit-check');
+
 // Classes
 const CHECK = 'fa-check-circle';
 const UNCHECK = 'fa-circle';
@@ -21,6 +24,13 @@ let id = 0;
 // Get LS
 const data = localStorage.getItem('Grocery');
 
+// Load list from LS to UI
+function loadList(array) {
+  array.forEach((item) => {
+    addGroceries(item.name, item.id, item.done, item.trash);
+  });
+}
+
 // Add grocerys to LS
 if (data) {
   LIST = JSON.parse(data);
@@ -29,13 +39,6 @@ if (data) {
 } else {
   LIST = [];
   id = 0;
-}
-
-// Load list from LS to UI
-function loadList(array) {
-  array.forEach((item) => {
-    addGroceries(item.name, item.id, item.done, item.trash);
-  });
 }
 
 // Add grocery
@@ -58,7 +61,8 @@ function addGroceries(grocery, id, done, trash) {
       <p class="text ${LINED}">${grocery}</p>
       
       <button class="edit-btn" job='edit'>
-        <i class="fas fa-pencil edit" job='edit' id ='${id}'></i>
+        <i class="fas fa-pencil edit active" job='edit' id ='${id}'></i>
+        <i class="fa-solid fa-check edit-check" job= 'edit' id ='${id}'></i>
       </button>
       <button class="trash-btn" id = '${id}'>
         <i class="fas fa-trash de" job="delete"></i>
@@ -90,12 +94,16 @@ function deleteGrocery(element) {
 function editGrocerys(element) {
   let textEl = element.parentNode.parentNode.querySelector('.text');
   // const key = element.target;
+  element.parentNode.querySelector('.edit').classList.toggle('active');
+  element.parentNode.querySelector('.edit-check').classList.toggle('active');
 
   textEl.contentEditable = true;
   textEl.classList.toggle('text-border');
+
   textEl.addEventListener('keyup', () => {
     textEl = textEl.textContent;
   });
+
   LIST[element.id].name = textEl.textContent;
 
   localStorage.setItem('Grocery', JSON.stringify(LIST));
@@ -104,7 +112,6 @@ function editGrocerys(element) {
 // Filter Grocery
 function filterGrocery(e) {
   const list = groceryEl.querySelectorAll('.grocery');
-  console.log(list);
   list.forEach((grocery) => {
     const checked = grocery
       .querySelector('i')
@@ -154,6 +161,7 @@ groceryEl.addEventListener('click', (e) => {
     });
   } else if (elementJob === 'edit') {
     editGrocerys(element);
+    // editCheck.classList.toggle('active');
   }
 
   // Update LS
