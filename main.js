@@ -5,15 +5,10 @@ const filterOptions = document.querySelector('.filter-groceries');
 const groceryEl = document.querySelector('.grocery-list');
 const clearEl = document.querySelector('.clear');
 
-const editBtn = document.querySelector('.edit');
-const editCheck = document.querySelector('.edit-check');
-
 // Classes
 const CHECK = 'fa-check-circle';
 const UNCHECK = 'fa-circle';
 const LINE = 'line-through';
-
-// Clear
 
 // Local Storage
 
@@ -43,9 +38,6 @@ if (data) {
 
 // Add grocery
 function addGroceries(grocery, id, done, trash) {
-  //   e.preventDefault();
-  //   const groceryValue = inputEl.value;
-
   if (trash) {
     return;
   }
@@ -70,7 +62,6 @@ function addGroceries(grocery, id, done, trash) {
       `;
 
   groceryEl.appendChild(divEl);
-  // inputEl.value = '';
 }
 
 // Complete grocery
@@ -93,7 +84,6 @@ function deleteGrocery(element) {
 // Edit grocerys
 function editGrocerys(element) {
   let textEl = element.parentNode.parentNode.querySelector('.text');
-  // const key = element.target;
   element.parentNode.querySelector('.edit').classList.toggle('active');
   element.parentNode.querySelector('.edit-check').classList.toggle('active');
 
@@ -161,7 +151,6 @@ groceryEl.addEventListener('click', (e) => {
     });
   } else if (elementJob === 'edit') {
     editGrocerys(element);
-    // editCheck.classList.toggle('active');
   }
 
   // Update LS
